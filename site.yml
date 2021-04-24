@@ -1,0 +1,16 @@
+---
+# This playbook deploys docker on all the hosts
+
+- name: configure and deploy docker daemon
+  hosts: all
+  remote_user: github
+  become: true
+
+  vars:
+    pip_install_packages:
+      - name: docker
+
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+

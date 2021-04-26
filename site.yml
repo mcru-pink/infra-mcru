@@ -1,16 +1,22 @@
 ---
 # This playbook deploys docker on all the hosts
 
-- name: configure and deploy docker daemon
-  hosts: all
-  remote_user: github
-  become: true
+ - name: configure and deploy docker daemon
+   hosts: all
+   remote_user: ansible
+   become: true
 
-  vars:
-    pip_install_packages:
-      - name: docker
+   vars:
+     pip_install_packages:
+       - name: docker
+   roles:
+     - geerlingguy.pip
+     - geerlingguy.docker
 
-  roles:
-    - geerlingguy.pip
-    - geerlingguy.docker
+ - name: run netdata agent
+   hosts: all
+   remote_user: ansible
+   become: true
 
+   roles:
+     - netdata
